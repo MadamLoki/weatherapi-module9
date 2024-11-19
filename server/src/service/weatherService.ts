@@ -1,5 +1,27 @@
 import dotenv from 'dotenv';
+import express from 'express';
 dotenv.config();
+
+// Import the routes
+import routes from './routes/index.ts';
+
+const app = express();
+
+const PORT = process.env.PORT || 3001;
+
+// Serve static files of entire client dist folder
+app.use(express.static('client/dist'));
+
+// Implement middleware for parsing JSON and urlencoded form data
+app.use(express.json({
+    type: ['application/json', 'text/plain']
+}));
+
+// Implement middleware to connect the routes
+app.use(routes);
+
+// Start the server on the port
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
 
 // TO DO: Define an interface for the Coordinates object
 interface Coordinates {
@@ -84,11 +106,11 @@ class WeatherService {
   }
   // TO DO: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
-    return `${this.baseURL}geocode?city=${this.cityName}&apiKey=${this.apiKey}`;
+    return `${process.env.API_BASE_URL}weather?q=${this.cityName}&appid=${process.env.API_KEY}`;
   }
   // TO DO: Create buildWeatherQuery method
   private buildWeatherQuery(coordinates: Coordinates): string {
-    return `${this.baseURL}weather?lat=${coordinates.lat}&lon=${coordinates.lon}&apiKey=${this.apiKey}`;
+    return `${process.env.API_BASE_URL}weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${process.env.API_KEY}`;
   }
   // TO DO: Create fetchAndDestructureLocationData method
   private async fetchAndDestructureLocationData() {
