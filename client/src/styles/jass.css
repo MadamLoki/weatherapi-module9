@@ -1,11 +1,11 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
+/*
+  1. Correct the line height in all browsers.
+  2. Prevent adjustments of font size after orientation changes in iOS.
  */
- html {
+html {
   line-height: 1.15;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -14,9 +14,7 @@
 
 /* Sections
      ========================================================================== */
-/**
-   * Remove the margin in all browsers.
-   */
+/* Remove the margin in all browsers. */
 body {
   margin: 0;
 }
@@ -288,17 +286,11 @@ textarea {
   /* 2 */
 }
 
-/**
-   * Remove the inner padding in Chrome and Safari on macOS.
-   */
 [type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-/**
-   * 1. Correct the inability to style clickable types in iOS and Safari.
-   * 2. Change font properties to `inherit` in Safari.
-   */
+
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   /* 1 */
@@ -308,16 +300,11 @@ textarea {
 
 /* Interactive
      ========================================================================== */
-/*
-   * Add the correct display in Edge, IE 10+, and Firefox.
-   */
+
 details {
   display: block;
 }
 
-/*
-   * Add the correct display in all browsers.
-   */
 summary {
   display: list-item;
 }

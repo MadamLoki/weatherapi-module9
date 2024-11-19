@@ -1,6 +1,6 @@
 import './styles/jass.css';
 
-// * All necessary DOM elements selected
+//  All necessary DOM elements selected
 const searchForm: HTMLFormElement = document.getElementById(
   'search-form'
 ) as HTMLFormElement;
@@ -150,7 +150,7 @@ const renderSearchHistory = async (searchHistory: any) => {
         '<p class="text-center">No Previous Search History</p>';
     }
 
-    // * Start at end of history array and count down to show the most recent cities at the top.
+    // Start at end of history array and count down to show the most recent cities at the top.
     for (let i = historyList.length - 1; i >= 0; i--) {
       const historyItem = buildHistoryListItem(historyList[i]);
       searchHistoryContainer.append(historyItem);
