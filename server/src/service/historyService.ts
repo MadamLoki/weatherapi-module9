@@ -1,4 +1,4 @@
-import { json } from "stream/consumers";
+import fs from 'node:fs/promises';
 
 // TO DO: Define a City class with name and id properties
 class City {
@@ -11,14 +11,11 @@ class City {
 }
 
 // TO DO: Complete the HistoryService class
-const fs = require('fs').promises; // Use promises to handle async operations
-const path = require('path');
 class HistoryService {
   // TO DO: Define a read method that reads from the searchHistory.json file
   private async read(): Promise<City[]> {
     try {
-      const filePath = path.join(__dirname, 'searchHistory.json');
-      const data = await fs.readFile(filePath, 'utf-8');
+      const data = await fs.readFile('db/db.json', 'utf-8');
       const cities: City[] = JSON.parse(data);
       return cities;
     } catch (error) {
@@ -30,8 +27,7 @@ class HistoryService {
   // TO DO: Define a write method that writes the updated cities array to the searchHistory.json file
   private async write(cities: City[]): Promise<void> {
     try {
-      const filePath = path.join(__dirname, 'searchHistory.json');
-      await fs.writeFile(filePath, JSON.stringify(cities, null, 2));
+      await fs.writeFile('db/db.json', JSON.stringify(cities, null, 2));
     } catch (error) {
       console.error('Error writing search history:', error);
       throw error; // Rethrow the error for handling in the calling function
