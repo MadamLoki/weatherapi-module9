@@ -56,21 +56,19 @@ class WeatherService {
     }
   }
   private destructureLocationData(locationData: Coordinates): Coordinates {
-    if (!locationData) {
+    if (!locationData || !locationData.lat || !locationData.lon) {
       throw new Error('Location data does not contain coordinates');
     }
-    const { name, lat, lon } = locationData;
-    // return { lat, lon };
-    const coordinates: Coordinates = {
-      name,
-      lat,
-      lon,
+    const coord: Coordinates = {
+      name: locationData.name,
+      lat: locationData.lat,
+      lon: locationData.lon,
     };
-    return coordinates;
+    return { name: coord.name, lat: coord.lat, lon: coord.lon };
   }
   // TO DO: Create buildGeocodeQuery method
   private buildGeocodeQuery(): string {
-    const geoQuery = `https://api.openweathermap.org/geo/1.0/direct?q=${this.cityName}&limit=5&appid=${this.apiKey}`;
+    const geoQuery = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(this.cityName)}&limit=5&appid=${this.apiKey}`;
     return geoQuery;
   }
   // TO DO: Create buildWeatherQuery method
@@ -83,19 +81,19 @@ class WeatherService {
   private async fetchAndDestructureLocationData() {
     //const locationData =
     return await this.fetchLocationData(this.buildGeocodeQuery()).then((data) =>
-      this.destructureLocationData(data as Coordinates)
+      this.destructureLocationData(data[0])
     );
   }
   // TO DO: Create fetchWeatherData method
   private async fetchWeatherData(coordinates: Coordinates) {
     try {
       const response = await fetch(this.buildWeatherQuery(coordinates)).then((response) => response.json());
-      console.log(response);
+      // console.log(response);
       if (!response) {
         throw new Error('Weather Data not found');
       }
       const forecast: Weather[] = await this.parseCurrentWeather(response);
-      const forecastArray: Weather[] = await this.buildForecastArray(response);
+      const forecastArray: Weather[] = this.buildForecastArray(response);
       console.log(forecast);
       return forecastArray;
     } catch (error) {
